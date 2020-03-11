@@ -31,12 +31,14 @@ def plot_figure(x, y, x_label=None, y_label=None, legend=None, figure_type=None,
                 plt.plot(x, y, legend)
         elif figure_type == 'bar':
             if len(y.shape) > 1:
-                raise ValueError("the shape of y must be one dimension")
+                for i in range(len(y)):
+                    plt.bar(x, y[i], legend[i], stack=True)
             else:
                 plt.bar(x, y, legend)
         elif figure_type == 'scatter':
             if len(y.shape) > 1:
-                plt.scatter(x, y[i], legend[i])
+                for i in range(len(y)):
+                    plt.scatter(x, y[i], legend[i])
             else:
                 plt.scatter(x, y, legend)
         elif figure_type == 'pie':
@@ -56,12 +58,14 @@ def plot_figure(x, y, x_label=None, y_label=None, legend=None, figure_type=None,
                 plt.plot(x, y)
         elif figure_type == 'bar':
             if len(y.shape) > 1:
-                raise ValueError("the shape of y must be one dimension")
+                for i in range(len(y)):
+                    plt.plot(x, y[i], stack=True)
             else:
                 plt.bar(x, y)
         elif figure_type == 'scatter':
             if len(y.shape) > 1:
-                plt.scatter(x, y[i])
+                for i in range(len(y)):
+                    plt.scatter(x, y[i])
             else:
                 plt.scatter(x, y)
         plt.xlabel(x_label)
