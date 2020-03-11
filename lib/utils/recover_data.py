@@ -42,7 +42,7 @@ def recover_missing(df, input_attr, missing_attr, method='RandomForest'):
         model.fit(train_data, train_label)
         predict_result = model.predict(test[:, 1:])
         df.loc[(getattr(df, missing_attr).isnull()), missing_attr] = predict_result
-    return df
+    return df, model
 
 def feature_transform(df, func):
     nrow, ncol = df.shape
