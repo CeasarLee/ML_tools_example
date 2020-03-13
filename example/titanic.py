@@ -3,7 +3,8 @@ import xgboost as xgb
 import _init_path
 from utils.recover_data import recover_missing, feature_transform
 import pandas as pd
-import sklearn.preprocessing as preprocessing
+from utils.data_prepare import scale
+from sklearn import linear_model
 
 DATA_PATH = '../data/titanic_disaster/'
 
@@ -31,8 +32,3 @@ dummies_Embarked = pd.get_dummies(train_data['Embarked'], prefix= 'Embarked')
 dummies_Sex = pd.get_dummies(train_data['Sex'], prefix= 'Sex')
 
 dummies_Pclass = pd.get_dummies(train_data['Pclass'], prefix= 'Pclass')
-
-df = pd.concat([df, dummies_Cabin, dummies_Embarked, dummies_Sex, dummies_Pclass], axis=1)
-df.drop(['Pclass', 'Name', 'Sex', 'Ticket', 'Cabin', 'Embarked'], axis=1, inplace=True)
-# 将属性的数值归一化
-scaler = preprocessing.StandardScaler()

@@ -1,6 +1,33 @@
-import numpy as np
 import pandas as pd
-from pandas import Series,DataFrame
+from sklearn.preprocessing import KBinsDiscretizer, StandardScaler
+
+
+def scale(array, scale_param=None):
+    """
+    :param array: input ndarray need to be scale or tranform
+    :param method: Gauss distribute or kbins, parameter:'Gauss', 'KBins'
+    :return: scale array & scaler
+    """
+    if len(array.shape) == 1:
+        array = array.reshape((-1, 1))
+    elif len(array.shape) > 2:
+        raise ValueError("the shape of array is not correct, we need array shape in 2 dimension not {}".format(len(array.shape)))
+    scaler = StandardScaler()
+    if scale_param is None:
+        scale_param = scaler.fit(array)
+    return scaler.fit_transform(array, scale_param).reshpae((-1)), scale_param
+
+def seprate_bins(array, bin_num, method='uniform'):
+    """
+    transform a array to one-hot array.
+    Note that binning features generally has no beneficial effect for tree-based models,
+    as these models can learn to split up the data anywhere.
+    :param array: array need to be transform
+    :param method: separate method, parameter: 'uniform', 'quantile', 'kmeans'
+    :return: array
+    """
+    scaler = KBinsDiscretizer(n_bins=bin_num, encode='onehot', strategy=method)
+    return scaler.fit_transform(array)
 
 def read_csv(csv_path, key=None):
     """

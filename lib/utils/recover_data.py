@@ -11,8 +11,8 @@ def recover_missing(df, input_attr, missing_attr, method='RandomForest'):
     :return: df
     """
     attrb_df = df[[missing_attr] + input_attr]
-    train = attrb_df[getattr(attrb_df, missing_attr).notnull()].as_matrix()
-    test = attrb_df[getattr(attrb_df, missing_attr).isnull()].as_matrix()
+    train = attrb_df[getattr(attrb_df, missing_attr).notnull()].values
+    test = attrb_df[getattr(attrb_df, missing_attr).isnull()].values
 
     train_label = train[:, 0]
     train_data = train[:, 1:]
